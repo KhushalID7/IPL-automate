@@ -234,16 +234,6 @@ with st.sidebar:
     if teams:
         selected_team = st.selectbox("Select Team to Manage", list(teams.keys()))
         
-        col_del_1, col_del_2 = st.columns([3, 1])
-        with col_del_1:
-            st.write("Delete selected team")
-        with col_del_2:
-            if st.button("🗑️ Delete", key="delete_team"):
-                teams.pop(selected_team, None)
-                save_teams(teams)
-                st.success(f"Team '{selected_team}' deleted!")
-                st.rerun()
-        
         st.subheader(f"Add Players to {selected_team}")
         
         # Fuzzy search input
@@ -349,4 +339,10 @@ else:
 
 # Footer
 st.divider()
-
+st.markdown("""
+### Scoring Formula:
+- **Batter**: Runs + Strike Rate + Batting Average (both years)
+- **Bowler**: (Wickets × 25) + (169 / Economy) + (Bowling Average × 2.5) (both years)
+- **All-rounder**: Bowler formula + Batter formula (both years)
+- **Note**: Null values are treated as 0
+""")
